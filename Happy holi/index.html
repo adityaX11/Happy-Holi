@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi Celebration!</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff);
+            background-size: 400% 400%;
+            animation: gradientBG 10s infinite;
+            text-align: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 2s ease-in-out;
+            position: relative;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h1 {
+            font-size: 4em;
+            margin: 10px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(90deg, #ff0080, #ff8000);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #ff8000, #ff0080);
+        }
+        .color-blast {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 10%, rgba(255,0,0,0.3) 60%);
+            border-radius: 50%;
+            animation: explode 0.5s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Happy Holi! 🎉</h1>
+    <h2 id="wishMessage">Spread colors, joy, and happiness! 🌈✨</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name" style="padding: 10px; font-size: 1.2em; border-radius: 5px; border: none; margin-bottom: 10px;">
+    <button class="btn" onclick="askName()">Submit</button>
+    <button class="btn" onclick="startColorBlast()">Color Blast 🎆</button>
+    
+    <script>
+        function askName() {
+            let name = document.getElementById("nameInput").value;
+            if (name.trim() !== "") {
+                document.getElementById("wishMessage").innerHTML = `Happy Holi, ${name}! 🎨 May your life be as colorful as this festival!`;
+            } else {
+                alert("Please enter a name!");
+            }
+        }
+        
+        function createColorBlast(x, y) {
+            let blast = document.createElement("div");
+            blast.className = "color-blast";
+            blast.style.left = `${x}px`;
+            blast.style.top = `${y}px`;
+            blast.style.background = `radial-gradient(circle, rgba(255,255,255,0.8) 10%, ${randomColor()} 60%)`;
+            document.body.appendChild(blast);
+            setTimeout(() => { blast.remove(); }, 500);
+        }
+        
+        function randomColor() {
+            let colors = ["#ff0000", "#ff7300", "#ffeb00", "#47ff00", "#00ffee", "#2b65ff", "#8000ff"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        function startColorBlast() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    let x = Math.random() * window.innerWidth;
+                    let y = Math.random() * window.innerHeight;
+                    createColorBlast(x, y);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
